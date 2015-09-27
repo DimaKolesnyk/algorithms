@@ -1,0 +1,44 @@
+#pragma once
+
+#include "struct"
+#include <functional>
+
+namespace algo
+{
+
+    template <typename T>
+    bool standartOperator(T a, T b) {
+
+        if (a > b ) { return true; }
+        else { return false; }
+    }
+
+    template <typename T>
+    void insertionSort( std::vector < T > &data, std::function<bool(T, T)> oper = standartOperator<T>)
+    {
+        T key;
+        int j;
+
+        for (int i = 1; i < data.size(); ++i) {
+            key = data[i];
+            j = i - 1;
+
+            while ( j >= 0 && oper(data[j], key)  ) {
+                data[j+1] = data[j];
+                j = j - 1;
+            }
+            data[j+1] = key;
+        }
+    }
+
+ 
+
+
+    template <typename T>
+    void viewData(std::vector<T> &data) {
+
+        std::cout << "[ ";
+        for (T &x : data) std::cout << x << "; ";
+        std::cout << "]";
+    }
+}
