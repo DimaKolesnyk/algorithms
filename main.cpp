@@ -1,5 +1,5 @@
 #include <iostream>
-#include "algo"
+#include "algo.hpp"
 
 
 int main() {
