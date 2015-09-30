@@ -1,6 +1,6 @@
 #pragma once
 
-#include "struct"
+#include "struct.hpp"
 #include <functional>
 #include <boost/optional/optional.hpp>
 
