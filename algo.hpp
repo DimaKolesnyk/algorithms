@@ -2,7 +2,7 @@
 
 #include "struct.hpp"
 #include <functional>
-#include <boost/optional/optional.hpp>
+#include "Time.hpp"
 
 namespace algo
 {
@@ -10,7 +10,7 @@ namespace algo
     template <typename T>
     bool standartOperator(T a, T b) {
 
-        if (a > b ) { return true; }
+        if (a > b || a==b ) { return true; }
         else { return false; }
     }
 
@@ -35,13 +35,13 @@ namespace algo
     inline int floor( double a) { return (int)a; }
 
     template <typename T>
-    void marge(std::vector<T> B, std::vector<T> C, std::vector <T> &data) {
+    void marge(std::vector<T> B, std::vector<T> C, std::vector <T> &data, std::function<bool(T, T)> oper = standartOperator<T>) {
 
         unsigned int i = 0;
         unsigned int j = 0;
         unsigned int k = 0;
         while (i < B.size() && j < C.size() ) {
-            if (B[i] <= C[j]) {
+            if ( oper(C[j],B[i]) )  {
                 data[k] = B[i];
                 i+=1;
             } else {
@@ -82,7 +82,19 @@ namespace algo
 
             margeSort(B, oper);
             margeSort(C, oper);
-            marge(B, C, data);
+            marge(B, C, data, oper);
+        }
+    }
+
+    template <typename T>
+    void bubbleSort(std::vector<T> &data, std::function<bool(T, T)> oper = standartOperator<T>) {
+
+        for (int i = 0; i < data.size()-1; ++i) {
+            for (int j = 0; j < data.size()-1-i; ++j) {
+                if ( oper( data[j], data[j+1]) ) {
+                    std::swap(data[j], data[j+1]);
+                }
+            }
         }
     }
 
